@@ -1,15 +1,49 @@
 # Developer Tools Web App
 
-A powerful, modern suite of browser-based tools for developers. Built with React, TypeScript, Vite, tailwindcss, and Monaco Editor.
+A powerful, modern suite of 27 browser-based tools for developers. Built with React, TypeScript, Vite, Tailwind CSS, and Monaco Editor. All processing is done 100% locally in your browser for maximum privacy and performance.
 
 ## 🛠️ Included Tools
 
-*   **JSON Formatter**: Format, minify, and validate JSON.
-*   **Notepad**: Persistent, full-screen text editor.
-*   **Notes (MarkDown)**: Organized note-taking with markdown support and persistence.
-*   **Base64 Converter**: Encode and decode text to/from Base64 (UTF-8 support).
-*   **URL Encoder/Decoder**: Encode and decode strings for safe URL usage.
-*   **Unix Timestamp Converter**: Convert between Unix timestamps and human-readable dates with a live "Now" display.
+### General & Core
+*   **JSON Formatter**: Prettify, minify, and validate JSON data with error detection.
+*   **Notepad**: A loose-leaf scratchpad for quick notes and text manipulation.
+*   **Notes (MarkDown)**: Organized note-taking app with categories, search, and markdown support.
+
+### Encoding & Conversion
+*   **Base64**: Encode and decode strings or files to/from Base64.
+*   **URL Encoder**: Encode and decode strings for safe URL usage.
+*   **Unix Timestamp**: Convert between Unix timestamps and human-readable dates with live sync.
+*   **HTML Entities**: Live encoding and decoding of HTML entities.
+*   **YAML ↔ JSON**: Bi-directional conversion with syntax highlighting.
+
+### Network & API
+*   **Curl to Code**: Convert curl commands to fetch (JS), requests (Python), Go, or PHP code.
+*   **HTTP Status Codes**: A searchable reference for status codes with MDN documentation links.
+
+### Data & Security
+*   **JWT Debugger**: Inspect and decode JSON Web Tokens instantly.
+*   **UUID Generator**: Generate unique identifiers (v4) in bulk.
+*   **Hash Generator**: Secure MD5, SHA-1, SHA-256, and SHA-512 hashing.
+*   **JSON to TypeScript**: Generate TypeScript interfaces directly from JSON objects.
+*   **Dummy Data Gen**: Generate mock data for users, products, companies, and more.
+
+### Web Dev Specific
+*   **SQL Formatter**: Format SQL queries for various dialects.
+*   **CSS Unit Converter**: Convert between px, rem, em, and percentages.
+*   **Color Picker**: Visual tool for color selection and format conversion (HEX, RGB, HSL).
+*   **SVG Compressor**: Minify and optimize SVG files using SVGO.
+*   **Image Optimizer**: Client-side compression for PNG, JPG, and WebP images.
+*   **QR Generator**: Create customizable QR codes with PNG export.
+
+### Writing & Analysis
+*   **Diff Viewer**: Professional side-by-side text comparison.
+*   **RegEx Tester**: Interactive playground for testing regular expressions.
+*   **Text Analyzer**: Detailed statistics for character counts, word density, and estimated reading time.
+
+### Dev Productivity
+*   **Cron Builder**: Build and parse cron expressions into human-readable text.
+*   **Markdown Live**: Real-time editor with live GitHub-style preview.
+*   **Changelog Gen**: Generate standardized release notes in Markdown format.
 
 ## 🚀 Getting Started
 
