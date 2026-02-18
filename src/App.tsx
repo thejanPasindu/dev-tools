@@ -16,6 +16,21 @@ import ColorPicker from './pages/ColorPicker';
 import DiffViewer from './pages/DiffViewer';
 import RegexTester from './pages/RegexTester';
 import TextAnalyzer from './pages/TextAnalyzer';
+
+// New Tools
+import CurlToCode from './pages/CurlToCode';
+import HtmlEntityConverter from './pages/HtmlEntityConverter';
+import HttpStatusCodes from './pages/HttpStatusCodes';
+import JsonToTypeScript from './pages/JsonToTypeScript';
+import DummyDataGenerator from './pages/DummyDataGenerator';
+import YamlJsonConverter from './pages/YamlJsonConverter';
+import SvgCompressor from './pages/SvgCompressor';
+import ImageOptimizer from './pages/ImageOptimizer';
+import QrCodeGenerator from './pages/QrCodeGenerator';
+import CronExpression from './pages/CronExpression';
+import MarkdownLive from './pages/MarkdownLive';
+import ChangelogGenerator from './pages/ChangelogGenerator';
+
 import {
   FileJson,
   FileText,
@@ -32,7 +47,18 @@ import {
   Columns,
   Search,
   Type,
-  ArrowRight
+  ArrowRight,
+  Terminal,
+  Code,
+  Globe,
+  FileCode,
+  Users,
+  FileImageIcon,
+  Image as ImageIcon,
+  QrCode,
+  Calendar,
+  Monitor,
+  FileEdit
 } from 'lucide-react';
 import { cn } from './lib/utils';
 
@@ -62,6 +88,22 @@ const toolGroups = [
     ]
   },
   {
+    title: 'Network & API',
+    items: [
+      { to: '/curl', icon: Terminal, label: 'Curl to Code', desc: 'Convert curl commands to JS, Python, Go, or PHP code.' },
+      { to: '/html-entities', icon: Code, label: 'HTML Entities', desc: 'Encode and decode HTML entities safely.' },
+      { to: '/http-status', icon: Globe, label: 'HTTP Status', desc: 'Searchable database of HTTP status codes and meanings.' },
+    ]
+  },
+  {
+    title: 'Data & Types',
+    items: [
+      { to: '/json-to-ts', icon: FileCode, label: 'JSON to TS', desc: 'Generate TypeScript interfaces from JSON objects.' },
+      { to: '/dummy-data', icon: Users, label: 'Dummy Data', desc: 'Generate mock data for users, companies, and more.' },
+      { to: '/yaml-json', icon: FileJson, label: 'YAML ↔ JSON', desc: 'Bi-directional conversion between YAML and JSON.' },
+    ]
+  },
+  {
     title: 'Web Dev',
     items: [
       { to: '/sql', icon: Database, label: 'SQL Formatter', desc: 'Format SQL queries for better readability across dialects.' },
@@ -77,27 +119,44 @@ const toolGroups = [
       { to: '/analyzer', icon: Type, label: 'Text Analyzer', desc: 'Dashboard for comprehensive text statistics and analysis.' },
     ]
   },
+  {
+    title: 'Optimization',
+    items: [
+      { to: '/svg-compress', icon: FileImageIcon, label: 'SVG Compress', desc: 'Minify and optimize SVG files for web use.' },
+      { to: '/image-optimize', icon: ImageIcon, label: 'Image Optimizer', desc: 'Compress JPG, PNG, and WebP images locally.' },
+      { to: '/qrcode', icon: QrCode, label: 'QR Generator', desc: 'Create and customize QR codes with PNG export.' },
+    ]
+  },
+  {
+    title: 'Productivity',
+    items: [
+      { to: '/cron', icon: Calendar, label: 'Cron Builder', desc: 'Build and parse cron expressions into human text.' },
+      { to: '/markdown', icon: Monitor, label: 'Markdown Live', desc: 'Real-time Markdown editor with live GitHub-style preview.' },
+      { to: '/changelog', icon: FileEdit, label: 'Changelog Gen', desc: 'Generate standardized release notes and changelogs.' },
+    ]
+  },
 ];
 
 const Dashboard = () => (
-  <div className="min-h-full bg-background overflow-auto">
+  <div className="min-h-full bg-background overflow-auto pb-20">
     <div className="max-w-7xl mx-auto p-8 space-y-12">
       {/* Hero Section */}
       <div className="text-center space-y-4 py-8">
         <h1 className="text-5xl font-extrabold tracking-tight lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 animate-in fade-in slide-in-from-bottom-4 duration-700">
           DevTools
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          Unlock your productivity with a suite of professional development utilities. Fast, local, and beautiful.
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          Professional development utilities. Fast, local, and beautiful.
+          Now featuring <span className="text-primary font-bold">27</span> essential tools.
         </p>
       </div>
 
       {/* Categories Grid */}
       <div className="space-y-16">
         {toolGroups.map((group, groupIdx) => (
-          <div key={group.title} className={cn("space-y-6 animate-in fade-in duration-1000", `delay-${groupIdx * 100}`)}>
+          <div key={group.title} className={cn("space-y-6 animate-in fade-in duration-1000", `delay-${groupIdx * 50}`)}>
             <div className="flex items-center gap-4">
-              <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-[0.3em] px-1 whitespace-nowrap">
+              <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] px-1 whitespace-nowrap">
                 {group.title}
               </h2>
               <div className="h-px w-full bg-gradient-to-r from-border to-transparent" />
@@ -112,24 +171,23 @@ const Dashboard = () => (
                 >
                   <div className="flex flex-col h-full space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className="p-3 bg-primary/10 text-primary rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                        <item.icon size={24} />
+                      <div className="p-2.5 bg-primary/10 text-primary rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                        <item.icon size={22} />
                       </div>
-                      <ArrowRight className="text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" size={18} />
+                      <ArrowRight className="text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" size={16} />
                     </div>
 
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-bold group-hover:text-primary transition-colors duration-300">
+                    <div className="space-y-1.5 text-left">
+                      <h3 className="text-base font-bold group-hover:text-primary transition-colors duration-300">
                         {item.label}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
                         {item.desc}
                       </p>
                     </div>
                   </div>
 
-                  {/* Subtle hover outline */}
-                  <div className="absolute inset-0 rounded-2xl border-2 border-primary/0 group-hover:border-primary/10 transition-colors pointer-events-none" />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-primary/0 group-hover:border-primary/5 transition-colors pointer-events-none" />
                 </Link>
               ))}
             </div>
@@ -138,8 +196,8 @@ const Dashboard = () => (
       </div>
 
       {/* Footer */}
-      <div className="py-12 text-center text-muted-foreground text-xs uppercase tracking-widest border-t border-border/50">
-        DevTools &copy; {new Date().getFullYear()} &bull; Built for modern developers
+      <div className="py-12 text-center text-muted-foreground text-[10px] uppercase tracking-[0.2em] border-t border-border/50">
+        DevTools Dashboard &bull; {new Date().getFullYear()} &bull; Professional Edition
       </div>
     </div>
   </div>
@@ -167,6 +225,21 @@ function App() {
             <Route path="/diff" element={<DiffViewer />} />
             <Route path="/regex" element={<RegexTester />} />
             <Route path="/analyzer" element={<TextAnalyzer />} />
+
+            {/* New Routes */}
+            <Route path="/curl" element={<CurlToCode />} />
+            <Route path="/html-entities" element={<HtmlEntityConverter />} />
+            <Route path="/http-status" element={<HttpStatusCodes />} />
+            <Route path="/json-to-ts" element={<JsonToTypeScript />} />
+            <Route path="/dummy-data" element={<DummyDataGenerator />} />
+            <Route path="/yaml-json" element={<YamlJsonConverter />} />
+            <Route path="/svg-compress" element={<SvgCompressor />} />
+            <Route path="/image-optimize" element={<ImageOptimizer />} />
+            <Route path="/qrcode" element={<QrCodeGenerator />} />
+            <Route path="/cron" element={<CronExpression />} />
+            <Route path="/markdown" element={<MarkdownLive />} />
+            <Route path="/changelog" element={<ChangelogGenerator />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
