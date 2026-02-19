@@ -29,7 +29,8 @@ import {
     QrCode,
     Calendar,
     Monitor,
-    FileEdit
+    FileEdit,
+    FileSpreadsheet
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { ModeToggle } from '../ui/mode-toggle';
@@ -78,6 +79,7 @@ export function Sidebar() {
             items: [
                 { to: '/json-to-ts', icon: FileCode, label: 'JSON to TS' },
                 { to: '/dummy-data', icon: Users, label: 'Dummy Data' },
+                { to: '/csv-json', icon: FileSpreadsheet, label: 'CSV ↔ JSON' },
                 { to: '/yaml-json', icon: FileJson, label: 'YAML ↔ JSON' },
             ]
         },
@@ -111,6 +113,7 @@ export function Sidebar() {
                 { to: '/cron', icon: Calendar, label: 'Cron Builder' },
                 { to: '/markdown', icon: Monitor, label: 'Markdown Live' },
                 { to: '/changelog', icon: FileEdit, label: 'Changelog Gen' },
+                { to: '/password', icon: ShieldCheck, label: 'Password Gen' },
             ]
         },
     ];
