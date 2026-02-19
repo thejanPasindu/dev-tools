@@ -1,37 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-    FileJson,
-    FileText,
-    StickyNote,
-    ChevronLeft,
-    ChevronRight,
-    LayoutDashboard,
-    Binary,
-    Link,
-    Clock,
-    ShieldCheck,
-    Fingerprint,
-    KeyRound,
-    Database,
-    Ruler,
-    Palette,
-    Columns,
-    Search,
-    Type,
-    Terminal,
-    Code,
-    Globe,
-    FileCode,
-    Users,
-    FileImageIcon,
-    Image as ImageIcon,
-    QrCode,
-    Calendar,
-    Monitor,
-    FileEdit,
-    FileSpreadsheet
-} from 'lucide-react';
+import { toolGroups } from '../../lib/tools';
+import { LayoutDashboard, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { ModeToggle } from '../ui/mode-toggle';
 
@@ -40,83 +10,12 @@ export function Sidebar() {
 
     const toggleSidebar = () => setCollapsed(!collapsed);
 
-    const groups = [
-        {
-            title: 'General',
-            items: [
-                { to: '/', icon: LayoutDashboard, label: 'Dashboard', exact: true },
-                { to: '/json', icon: FileJson, label: 'JSON Formatter' },
-                { to: '/notepad', icon: FileText, label: 'Notepad' },
-                { to: '/notes', icon: StickyNote, label: 'Notes' },
-            ]
-        },
-        {
-            title: 'Envelop/Convert',
-            items: [
-                { to: '/base64', icon: Binary, label: 'Base64' },
-                { to: '/url', icon: Link, label: 'URL Encoder' },
-                { to: '/timestamp', icon: Clock, label: 'Timestamp' },
-            ]
-        },
-        {
-            title: 'Network & API',
-            items: [
-                { to: '/curl', icon: Terminal, label: 'Curl to Code' },
-                { to: '/html-entities', icon: Code, label: 'HTML Entities' },
-                { to: '/http-status', icon: Globe, label: 'HTTP Status' },
-            ]
-        },
-        {
-            title: 'Security',
-            items: [
-                { to: '/jwt', icon: ShieldCheck, label: 'JWT Debugger' },
-                { to: '/uuid', icon: Fingerprint, label: 'UUID Gen' },
-                { to: '/hash', icon: KeyRound, label: 'Hash Gen' },
-            ]
-        },
-        {
-            title: 'Data & Types',
-            items: [
-                { to: '/json-to-ts', icon: FileCode, label: 'JSON to TS' },
-                { to: '/dummy-data', icon: Users, label: 'Dummy Data' },
-                { to: '/csv-json', icon: FileSpreadsheet, label: 'CSV ↔ JSON' },
-                { to: '/yaml-json', icon: FileJson, label: 'YAML ↔ JSON' },
-            ]
-        },
-        {
-            title: 'Web Dev',
-            items: [
-                { to: '/sql', icon: Database, label: 'SQL Formatter' },
-                { to: '/units', icon: Ruler, label: 'Unit Converter' },
-                { to: '/color', icon: Palette, label: 'Color Picker' },
-            ]
-        },
-        {
-            title: 'Analysis',
-            items: [
-                { to: '/diff', icon: Columns, label: 'Diff Viewer' },
-                { to: '/regex', icon: Search, label: 'RegEx Tester' },
-                { to: '/analyzer', icon: Type, label: 'Text Analyzer' },
-            ]
-        },
-        {
-            title: 'Optimization',
-            items: [
-                { to: '/svg-compress', icon: FileImageIcon, label: 'SVG Compress' },
-                { to: '/image-optimize', icon: ImageIcon, label: 'Image Optimizer' },
-                { to: '/qrcode', icon: QrCode, label: 'QR Generator' },
-            ]
-        },
-        {
-            title: 'Productivity',
-            items: [
-                { to: '/cron', icon: Calendar, label: 'Cron Builder' },
-                { to: '/markdown', icon: Monitor, label: 'Markdown Live' },
-                { to: '/changelog', icon: FileEdit, label: 'Changelog Gen' },
-                { to: '/password', icon: ShieldCheck, label: 'Password Gen' },
-            ]
-        },
-    ];
+    const dashboardItem = {
+        title: 'General',
+        items: [{ to: '/', icon: LayoutDashboard, label: 'Dashboard', exact: true }]
+    };
+
+    const groups = [dashboardItem, ...toolGroups];
 
     return (
         <aside
