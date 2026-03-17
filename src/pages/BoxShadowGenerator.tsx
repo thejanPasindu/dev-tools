@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Palette, Copy, Check, RefreshCw, Layout } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { ToolLayout } from '../components/layout/ToolLayout';
 import { usePersistentState } from '../hooks/usePersistentState';
 

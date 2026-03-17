@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { FileCode, FileJson, AlignLeft, Minimize2 } from 'lucide-react';
+import { useState } from 'react';
+import { FileJson, AlignLeft, Minimize2 } from 'lucide-react';
 import { ToolLayout } from '../components/layout/ToolLayout';
 import { usePersistentState } from '../hooks/usePersistentState';
 import Editor from '@monaco-editor/react';
@@ -8,21 +8,7 @@ export default function XmlFormatter() {
     const [editorValue, setEditorValue] = usePersistentState<string>('xml_value', '');
     const [error, setError] = useState<string | null>(null);
 
-    const formatXml = useCallback((xml: string) => {
-        let formatted = '';
-        let indent = '';
-        const tab = '  ';
-        xml.split(/>\s*</).forEach(node => {
-            if (node.match(/^\/\w/)) {
-                indent = indent.substring(tab.length);
-            }
-            formatted += indent + '<' + node + '>\r\n';
-            if (node.match(/^<?\w[^>]*[^\/]$/)) {
-                indent += tab;
-            }
-        });
-        return formatted.substring(1, formatted.length - 3);
-    }, []);
+
 
     const handleFormat = () => {
         if (!editorValue) return;
@@ -78,10 +64,11 @@ export default function XmlFormatter() {
             const parseNode = (node: Node): any => {
                 const obj: any = {};
                 if (node.nodeType === 1) { // element
-                    if (node.attributes.length > 0) {
+                    const element = node as Element;
+                    if (element.attributes.length > 0) {
                         obj["@attributes"] = {};
-                        for (let j = 0; j < node.attributes.length; j++) {
-                            const attribute = node.attributes.item(j);
+                        for (let j = 0; j < element.attributes.length; j++) {
+                            const attribute = element.attributes.item(j);
                             obj["@attributes"][attribute!.nodeName] = attribute!.nodeValue;
                         }
                     }

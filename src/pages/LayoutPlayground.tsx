@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Columns, Plus, Minus, Copy, Check, Layout as LayoutIcon, Layers, Grid } from 'lucide-react';
+import { Plus, Minus, Copy, Check, Layers, Grid } from 'lucide-react';
 import { ToolLayout } from '../components/layout/ToolLayout';
 import { usePersistentState } from '../hooks/usePersistentState';
 import { cn } from '../lib/utils';

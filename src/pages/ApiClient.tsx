@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Play, Send, Plus, Trash2, Clock, Binary, FileJson } from 'lucide-react';
+import { Send, Plus, Trash2, Clock } from 'lucide-react';
 import { ToolLayout } from '../components/layout/ToolLayout';
 import { usePersistentState } from '../hooks/usePersistentState';
 import Editor from '@monaco-editor/react';
