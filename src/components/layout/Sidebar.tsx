@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { toolGroups } from '../../lib/tools';
-import { LayoutDashboard, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { ModeToggle } from '../ui/mode-toggle';
 
@@ -16,6 +16,10 @@ export function Sidebar() {
     };
 
     const groups = [dashboardItem, ...toolGroups];
+
+    const openCommandPalette = () => {
+        window.dispatchEvent(new Event('open-command-palette'));
+    };
 
     return (
         <aside
@@ -35,6 +39,28 @@ export function Sidebar() {
             </div>
 
             <nav className="flex-1 overflow-y-auto py-4 flex flex-col gap-6 px-2 scrollbar-none">
+                <div className="px-2">
+                    <button
+                        onClick={openCommandPalette}
+                        className={cn(
+                            "w-full flex items-center gap-3 px-3 py-1.5 rounded-lg transition-all hover:bg-secondary/60 text-muted-foreground",
+                            collapsed ? "justify-center px-1.5" : "justify-between"
+                        )}
+                        title={collapsed ? "Search tools" : undefined}
+                    >
+                        <div className="flex items-center gap-3">
+                            <Search size={16} />
+                            {!collapsed && <span className="text-[13px] font-medium">Search</span>}
+                        </div>
+                        {!collapsed && (
+                            <div className="flex items-center gap-1.5 px-1.5 py-0.5 rounded border bg-background/50 text-[10px] font-mono opacity-80 backdrop-blur-sm">
+                                <span>⌘</span>
+                                <span>K</span>
+                            </div>
+                        )}
+                    </button>
+                </div>
+
                 {groups.map((group) => (
                     <div key={group.title} className="flex flex-col gap-0.5">
                         {!collapsed && (

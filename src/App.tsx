@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { ThemeProvider } from './components/ui/theme-provider';
 import { Layout } from './components/layout/Layout';
 import { toolGroups } from './lib/tools';
-import { Loader2, ArrowRight } from 'lucide-react';
+import { Loader2, ArrowRight, Search } from 'lucide-react';
 import { cn } from './lib/utils';
 
 // Lazy load pages
@@ -50,7 +50,23 @@ const PageLoader = () => (
   </div>
 );
 
-const Dashboard = () => (
+const Dashboard = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredGroups = useMemo(() => {
+    if (!searchQuery.trim()) return toolGroups;
+    
+    const query = searchQuery.toLowerCase();
+    return toolGroups.map(group => ({
+      ...group,
+      items: group.items.filter(item => 
+        item.label.toLowerCase().includes(query) || 
+        item.desc.toLowerCase().includes(query)
+      )
+    })).filter(group => group.items.length > 0);
+  }, [searchQuery]);
+
+  return (
   <div className="min-h-full bg-background overflow-auto pb-20 text-center space-y-4 py-8 max-w-7xl mx-auto p-8 space-y-12">
     {/* Hero Section */}
     <div className="text-center space-y-4 py-8">
@@ -63,9 +79,29 @@ const Dashboard = () => (
       </p>
     </div>
 
+    {/* Search Input */}
+    <div className="max-w-2xl mx-auto relative animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150">
+      <div className="relative group">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={20} />
+        <input
+          type="text"
+          placeholder="Search tools..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-12 pr-4 py-4 rounded-2xl bg-card border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all text-lg placeholder:text-muted-foreground shadow-sm"
+        />
+      </div>
+    </div>
+
     {/* Categories Grid */}
     <div className="space-y-16">
-      {toolGroups.map((group, groupIdx) => (
+      {filteredGroups.length === 0 ? (
+        <div className="py-20 text-center text-muted-foreground animate-in fade-in">
+           <Search className="mx-auto mb-4 opacity-20" size={48} />
+           <p className="text-lg">No tools found for "{searchQuery}"</p>
+        </div>
+      ) : (
+      filteredGroups.map((group, groupIdx) => (
         <div key={group.title} className={cn("space-y-6 animate-in fade-in duration-1000", `delay-${groupIdx * 50}`)}>
           <div className="flex items-center gap-4">
             <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] px-1 whitespace-nowrap">
@@ -104,7 +140,8 @@ const Dashboard = () => (
             ))}
           </div>
         </div>
-      ))}
+      ))
+      )}
     </div>
 
     {/* Footer */}
@@ -112,7 +149,8 @@ const Dashboard = () => (
       DevTools Dashboard &bull; {new Date().getFullYear()} &bull; Professional Edition
     </div>
   </div>
-);
+  );
+};
 
 function App() {
   return (

@@ -49,6 +49,12 @@ export function CommandPalette() {
     }, [handleClose]);
 
     useEffect(() => {
+        const handleOpenEvent = () => handleOpen();
+        window.addEventListener('open-command-palette', handleOpenEvent);
+        return () => window.removeEventListener('open-command-palette', handleOpenEvent);
+    }, [handleOpen]);
+
+    useEffect(() => {
         if (isOpen) {
             setSelectedIndex(0);
             inputRef.current?.focus();
