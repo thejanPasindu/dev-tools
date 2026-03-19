@@ -61,9 +61,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: 'DevTools v__VERSION__'
           releaseBody: 'See the assets below to download the version for your platform.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+
+      - name: Zip web build
+        if: matrix.platform == 'ubuntu-22.04'
+        run: zip -r devtools-web.zip dist/
+
+      - name: Upload web build to release
+        if: matrix.platform == 'ubuntu-22.04'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: devtools-web.zip
+          tag_name: ${{ github.ref_name }} # Appends to the same release created by tauri-action
