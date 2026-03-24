@@ -22,6 +22,7 @@ import {
     FileImageIcon,
     Image as ImageIcon,
     QrCode,
+    ScanLine,
     Calendar,
     Monitor,
     FileEdit,
@@ -113,6 +114,7 @@ export const toolGroups: ToolGroup[] = [
             { to: '/svg-compress', icon: FileImageIcon, label: 'SVG Compress', desc: 'Minify and optimize SVG files for web use.' },
             { to: '/image-optimize', icon: ImageIcon, label: 'Image Optimizer', desc: 'Compress JPG, PNG, and WebP images locally.' },
             { to: '/qrcode', icon: QrCode, label: 'QR Generator', desc: 'Create and customize QR codes with PNG export.' },
+            { to: '/barcode', icon: ScanLine, label: 'Barcode Generator', desc: 'Create and customize 1D barcodes with PNG export.' },
         ]
     },
     {

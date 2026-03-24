@@ -31,6 +31,7 @@ const YamlJsonConverter = lazy(() => import('./pages/YamlJsonConverter'));
 const SvgCompressor = lazy(() => import('./pages/SvgCompressor'));
 const ImageOptimizer = lazy(() => import('./pages/ImageOptimizer'));
 const QrCodeGenerator = lazy(() => import('./pages/QrCodeGenerator'));
+const BarcodeGenerator = lazy(() => import('./pages/BarcodeGenerator'));
 const CronExpression = lazy(() => import('./pages/CronExpression'));
 const MarkdownLive = lazy(() => import('./pages/MarkdownLive'));
 const ChangelogGenerator = lazy(() => import('./pages/ChangelogGenerator'));
@@ -186,6 +187,7 @@ function App() {
               <Route path="/svg-compress" element={<SvgCompressor />} />
               <Route path="/image-optimize" element={<ImageOptimizer />} />
               <Route path="/qrcode" element={<QrCodeGenerator />} />
+              <Route path="/barcode" element={<BarcodeGenerator />} />
               <Route path="/cron" element={<CronExpression />} />
               <Route path="/markdown" element={<MarkdownLive />} />
               <Route path="/changelog" element={<ChangelogGenerator />} />
