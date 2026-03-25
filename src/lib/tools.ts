@@ -57,6 +57,7 @@ export const toolGroups: ToolGroup[] = [
         title: 'Envelop/Convert',
         items: [
             { to: '/base64', icon: Binary, label: 'Base64', desc: 'Encode and decode strings/files to/from Base64.' },
+            { to: '/image-base64', icon: ImageIcon, label: 'Image to Base64', desc: 'Convert images to Base64 strings for direct embedding.' },
             { to: '/url', icon: LinkIcon, label: 'URL Encoder', desc: 'Encode and decode strings for safe URL usage.' },
             { to: '/timestamp', icon: Clock, label: 'Timestamp', desc: 'Convert between Unix timestamps and human-readable dates.' },
         ]

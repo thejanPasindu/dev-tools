@@ -11,6 +11,7 @@ const JsonFormatter = lazy(() => import('./pages/JsonFormatter'));
 const Notepad = lazy(() => import('./pages/Notepad'));
 const Notes = lazy(() => import('./pages/Notes'));
 const Base64Converter = lazy(() => import('./pages/Base64Converter'));
+const ImageToBase64 = lazy(() => import('./pages/ImageToBase64'));
 const UrlEncoder = lazy(() => import('./pages/UrlEncoder'));
 const UnixTimestamp = lazy(() => import('./pages/UnixTimestamp'));
 const JwtDebugger = lazy(() => import('./pages/JwtDebugger'));
@@ -165,6 +166,7 @@ function App() {
               <Route path="/notepad" element={<Notepad />} />
               <Route path="/notes" element={<Notes />} />
               <Route path="/base64" element={<Base64Converter />} />
+              <Route path="/image-base64" element={<ImageToBase64 />} />
               <Route path="/url" element={<UrlEncoder />} />
               <Route path="/timestamp" element={<UnixTimestamp />} />
               <Route path="/jwt" element={<JwtDebugger />} />
