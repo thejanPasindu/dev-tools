@@ -1,5 +1,5 @@
 import Editor from '@monaco-editor/react';
-import { Download, Trash2, Copy, Check, Plus, X } from 'lucide-react';
+import { Download, Trash2, Copy, Check, Plus, X, Pencil } from 'lucide-react';
 import { useState, useCallback } from 'react';
 import { useLocalStorage } from '../hooks/use-local-storage';
 
@@ -146,13 +146,22 @@ export default function Notepad() {
                                 onClick={e => e.stopPropagation()}
                             />
                         ) : (
-                            <span
-                                className="truncate max-w-[100px]"
-                                onDoubleClick={e => startRename(tab, e)}
-                                title={`${tab.name} (double-click to rename)`}
-                            >
-                                {tab.name}
-                            </span>
+                            <>
+                                <span
+                                    className="truncate max-w-[100px]"
+                                    onDoubleClick={e => startRename(tab, e)}
+                                    title={`${tab.name} (double-click to rename)`}
+                                >
+                                    {tab.name}
+                                </span>
+                                <button
+                                    onClick={e => startRename(tab, e)}
+                                    className="opacity-0 group-hover:opacity-100 hover:text-primary transition-opacity shrink-0"
+                                    title="Rename tab"
+                                >
+                                    <Pencil size={10} />
+                                </button>
+                            </>
                         )}
                         {safeTabs.length > 1 && (
                             <button

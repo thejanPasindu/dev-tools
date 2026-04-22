@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback } from 'react';
 import Editor, { OnMount } from '@monaco-editor/react';
-import { Braces, Minimize2, Plus, X } from 'lucide-react';
+import { Braces, Minimize2, Plus, X, Pencil } from 'lucide-react';
 import { ToolLayout } from '../components/layout/ToolLayout';
 import { usePersistentState } from '../hooks/usePersistentState';
 
@@ -154,13 +154,22 @@ export default function JsonFormatter() {
                                     onClick={e => e.stopPropagation()}
                                 />
                             ) : (
-                                <span
-                                    className="truncate max-w-[100px]"
-                                    onDoubleClick={e => startRename(tab, e)}
-                                    title={`${tab.name} (double-click to rename)`}
-                                >
-                                    {tab.name}
-                                </span>
+                                <>
+                                    <span
+                                        className="truncate max-w-[100px]"
+                                        onDoubleClick={e => startRename(tab, e)}
+                                        title={`${tab.name} (double-click to rename)`}
+                                    >
+                                        {tab.name}
+                                    </span>
+                                    <button
+                                        onClick={e => startRename(tab, e)}
+                                        className="opacity-0 group-hover:opacity-100 hover:text-primary transition-opacity shrink-0"
+                                        title="Rename tab"
+                                    >
+                                        <Pencil size={10} />
+                                    </button>
+                                </>
                             )}
                             {safeTabs.length > 1 && (
                                 <button

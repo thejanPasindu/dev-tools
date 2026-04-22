@@ -82,7 +82,30 @@ export default function MarkdownLive() {
                     </div>
                     <div className="flex-1 overflow-auto p-8 md:p-12">
                         <div
-                            className="prose prose-slate dark:prose-invert max-w-none prose-pre:bg-secondary/20 prose-pre:border"
+                            className={[
+                                'prose prose-slate dark:prose-invert max-w-none',
+                                // Headings
+                                'prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-6 prose-h1:mt-0 prose-h1:pb-3 prose-h1:border-b prose-h1:border-border',
+                                'prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h2:mt-8 prose-h2:pb-2 prose-h2:border-b prose-h2:border-border',
+                                'prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-h3:mt-6',
+                                'prose-h4:text-base prose-h4:font-semibold prose-h4:mb-2 prose-h4:mt-4',
+                                // Body text
+                                'prose-p:leading-7 prose-p:mb-4',
+                                'prose-li:leading-7',
+                                'prose-ul:my-4 prose-ol:my-4',
+                                // Code
+                                'prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none',
+                                'prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4 prose-pre:my-4',
+                                'prose-pre:overflow-x-auto',
+                                // Blockquote
+                                'prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-blockquote:not-italic',
+                                // Table
+                                'prose-table:w-full prose-th:text-left prose-th:font-semibold',
+                                // Links
+                                'prose-a:text-primary prose-a:underline-offset-4',
+                                // HR
+                                'prose-hr:border-border prose-hr:my-6',
+                            ].join(' ')}
                             dangerouslySetInnerHTML={{ __html: html }}
                         />
                     </div>
