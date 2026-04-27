@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
     Search,
     Trash2,
@@ -7,12 +7,22 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+function extractNamedGroups(pattern: string): string[] {
+    const names: string[] = [];
+    const re = /\(\?<([^>]+)>/g;
+    let m;
+    while ((m = re.exec(pattern)) !== null) names.push(m[1]);
+    return names;
+}
+
 export default function RegexTester() {
     const [regex, setRegex] = useState('([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})');
     const [flags, setFlags] = useState('g');
     const [testText, setTestText] = useState('Contact us at support@example.com or admin@dev-tools.io');
     const [matches, setMatches] = useState<RegExpMatchArray[]>([]);
     const [error, setError] = useState<string | null>(null);
+
+    const namedGroups = useMemo(() => extractNamedGroups(regex), [regex]);
 
     useEffect(() => {
         if (!regex) {
@@ -62,7 +72,7 @@ export default function RegexTester() {
                     <div className="flex items-center justify-between">
                         <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Regular Expression</label>
                         <div className="flex items-center gap-1">
-                            {['g', 'i', 'm', 's', 'u'].map(f => (
+                            {['g', 'i', 'm', 's', 'u', 'y'].map(f => (
                                 <button
                                     key={f}
                                     onClick={() => toggleFlag(f)}
@@ -132,12 +142,31 @@ export default function RegexTester() {
                                     </div>
                                     {match.length > 1 && (
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 pt-2 border-t border-dashed">
-                                            {Array.from(match).slice(1).map((group, gIdx) => (
-                                                <div key={gIdx} className="flex flex-col gap-1">
-                                                    <span className="text-[9px] font-bold text-muted-foreground uppercase">Group {gIdx + 1}</span>
-                                                    <span className="text-xs font-mono break-all">{group || <span className="italic opacity-30">null</span>}</span>
-                                                </div>
-                                            ))}
+                                            {Array.from(match).slice(1).map((group, gIdx) => {
+                                                const name = namedGroups[gIdx];
+                                                return (
+                                                    <div key={gIdx} className="flex flex-col gap-1">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span className="text-[9px] font-bold text-muted-foreground uppercase">Group {gIdx + 1}</span>
+                                                            {name && <span className="text-[9px] font-mono px-1.5 py-0.5 bg-primary/10 text-primary rounded-full">{name}</span>}
+                                                        </div>
+                                                        <span className="text-xs font-mono break-all">{group ?? <span className="italic opacity-30">null</span>}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                    {namedGroups.length > 0 && match.groups && (
+                                        <div className="mt-2 pt-2 border-t border-dashed">
+                                            <p className="text-[9px] font-bold text-muted-foreground uppercase mb-2">Named Groups</p>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                {namedGroups.map(name => (
+                                                    <div key={name} className="flex flex-col gap-1">
+                                                        <span className="text-[9px] font-mono px-1.5 py-0.5 bg-primary/10 text-primary rounded-full w-fit">{name}</span>
+                                                        <span className="text-xs font-mono break-all">{match.groups![name] ?? <span className="italic opacity-30">null</span>}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     )}
                                 </div>

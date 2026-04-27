@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-export function usePersistentState<T>(key: string, defaultValue: T): [T, (value: T) => void] {
+export function usePersistentState<T>(key: string, defaultValue: T): [T, Dispatch<SetStateAction<T>>] {
     const [state, setState] = useState<T>(() => {
         const saved = localStorage.getItem(`devtools_${key}`);
         if (saved !== null) {
-            try {
-                return JSON.parse(saved);
-            } catch {
-                return defaultValue;
-            }
+            try { return JSON.parse(saved); }
+            catch { return defaultValue; }
         }
         return defaultValue;
     });

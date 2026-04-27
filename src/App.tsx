@@ -44,6 +44,19 @@ const RsaKeyGenerator = lazy(() => import('./pages/RsaKeyGenerator'));
 const HmacGenerator = lazy(() => import('./pages/HmacGenerator'));
 const BoxShadowGenerator = lazy(() => import('./pages/BoxShadowGenerator'));
 const LayoutPlayground = lazy(() => import('./pages/LayoutPlayground'));
+const StringCaseConverter = lazy(() => import('./pages/StringCaseConverter'));
+const NumberBaseConverter = lazy(() => import('./pages/NumberBaseConverter'));
+const ChmodCalculator = lazy(() => import('./pages/ChmodCalculator'));
+const CidrCalculator = lazy(() => import('./pages/CidrCalculator'));
+const WcagContrastChecker = lazy(() => import('./pages/WcagContrastChecker'));
+const AsciiTable = lazy(() => import('./pages/AsciiTable'));
+const CssGradientGenerator = lazy(() => import('./pages/CssGradientGenerator'));
+const ColorPaletteGenerator = lazy(() => import('./pages/ColorPaletteGenerator'));
+const AppSettings = lazy(() => import('./pages/AppSettings'));
+const TomlJsonConverter = lazy(() => import('./pages/TomlJsonConverter'));
+const JsonSchemaValidator = lazy(() => import('./pages/JsonSchemaValidator'));
+const JwtBuilder = lazy(() => import('./pages/JwtBuilder'));
+const CertificateInspector = lazy(() => import('./pages/CertificateInspector'));
 
 // Loading component
 const PageLoader = () => (
@@ -201,6 +214,19 @@ function App() {
               <Route path="/hmac" element={<HmacGenerator />} />
               <Route path="/shadow" element={<BoxShadowGenerator />} />
               <Route path="/layout" element={<LayoutPlayground />} />
+              <Route path="/string-case" element={<StringCaseConverter />} />
+              <Route path="/number-base" element={<NumberBaseConverter />} />
+              <Route path="/chmod" element={<ChmodCalculator />} />
+              <Route path="/cidr" element={<CidrCalculator />} />
+              <Route path="/wcag" element={<WcagContrastChecker />} />
+              <Route path="/ascii" element={<AsciiTable />} />
+              <Route path="/gradient" element={<CssGradientGenerator />} />
+              <Route path="/palette" element={<ColorPaletteGenerator />} />
+              <Route path="/settings" element={<AppSettings />} />
+              <Route path="/toml-json" element={<TomlJsonConverter />} />
+              <Route path="/json-schema" element={<JsonSchemaValidator />} />
+              <Route path="/jwt-builder" element={<JwtBuilder />} />
+              <Route path="/cert" element={<CertificateInspector />} />
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>

@@ -1,6 +1,39 @@
 import { useState } from 'react';
 import { Palette, Copy, Check, RefreshCw, Layers } from 'lucide-react';
 
+interface RGB { r: number; g: number; b: number }
+
+function simulateColorBlindness(rgb: RGB): Record<string, string> {
+    const { r, g, b } = rgb;
+    const toHex = ({ r, g, b }: RGB) =>
+        '#' + [r, g, b].map(v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+
+    const protanopia: RGB = {
+        r: 0.567 * r + 0.433 * g,
+        g: 0.558 * r + 0.442 * g,
+        b: 0.242 * g + 0.758 * b,
+    };
+    const deuteranopia: RGB = {
+        r: 0.625 * r + 0.375 * g,
+        g: 0.700 * r + 0.300 * g,
+        b: 0.300 * g + 0.700 * b,
+    };
+    const tritanopia: RGB = {
+        r: 0.950 * r + 0.050 * g,
+        g: 0.433 * g + 0.567 * b,
+        b: 0.475 * g + 0.525 * b,
+    };
+    const lum = 0.213 * r + 0.715 * g + 0.072 * b;
+    const achromatopsia: RGB = { r: lum, g: lum, b: lum };
+
+    return {
+        'Protanopia (Red-blind)': toHex(protanopia),
+        'Deuteranopia (Green-blind)': toHex(deuteranopia),
+        'Tritanopia (Blue-blind)': toHex(tritanopia),
+        'Achromatopsia (No color)': toHex(achromatopsia),
+    };
+}
+
 export default function ColorPicker() {
     const [color, setColor] = useState('#3b82f6');
     const [copied, setCopied] = useState<string | null>(null);
@@ -43,6 +76,7 @@ export default function ColorPicker() {
     };
 
     const rgb = hexToRgb(color);
+    const cvdSims = rgb ? simulateColorBlindness(rgb) : {};
     const hsl = hexToHsl(color);
 
     const formatRgb = rgb ? `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` : '';
@@ -80,7 +114,8 @@ export default function ColorPicker() {
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr,1.5fr] gap-12 max-w-5xl mx-auto w-full">
+            <div className="space-y-12 max-w-5xl mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr,1.5fr] gap-12">
                 {/* Visual Picker */}
                 <div className="space-y-6">
                     <div className="relative aspect-square w-full rounded-3xl border shadow-2xl overflow-hidden group">
@@ -132,6 +167,29 @@ export default function ColorPicker() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Colorblindness Simulation */}
+            {rgb && (
+                <div className="space-y-4 pt-4 border-t">
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Color Vision Deficiency Simulation</label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="flex flex-col gap-2 items-center">
+                            <div className="w-full h-16 rounded-xl border shadow-sm" style={{ backgroundColor: color }} />
+                            <p className="text-[10px] text-center text-muted-foreground font-medium">Original</p>
+                            <p className="text-[10px] font-mono text-center">{color.toUpperCase()}</p>
+                        </div>
+                        {Object.entries(cvdSims).map(([label, simColor]) => (
+                            <div key={label} className="flex flex-col gap-2 items-center">
+                                <div className="w-full h-16 rounded-xl border shadow-sm" style={{ backgroundColor: simColor }} />
+                                <p className="text-[10px] text-center text-muted-foreground font-medium leading-tight">{label.split(' ')[0]}</p>
+                                <p className="text-[10px] font-mono text-center">{simColor.toUpperCase()}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-[10px] text-muted-foreground/60">Simulates how the color appears to people with color vision deficiency using standard CVD transformation matrices.</p>
+                </div>
+            )}
             </div>
         </div>
     );
