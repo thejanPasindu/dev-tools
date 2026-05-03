@@ -9,7 +9,11 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "cli": "tsx cli/index.tsx"
+  },
+  "bin": {
+    "devtools": "./cli/index.tsx"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
@@ -37,7 +41,11 @@
     "sql-formatter": "^15.7.1",
     "svgo": "^4.0.0",
     "tailwind-merge": "^2.2.0",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "ink": "^5.0.1",
+    "ink-select-input": "^6.0.0",
+    "ink-text-input": "^6.0.0",
+    "commander": "^12.0.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
@@ -57,6 +65,8 @@
     "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "tsx": "^4.7.0",
+    "@types/ink-select-input": "^3.0.0"
   }
 }
